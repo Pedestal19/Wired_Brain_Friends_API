@@ -3,6 +3,8 @@ package com.wiredbrain.friends.controllers;
 import com.wiredbrain.friends.model.Friend;
 import com.wiredbrain.friends.services.FriendService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -30,8 +32,13 @@ public class FriendController {
     }
 
     @PutMapping("/friend")
-    Friend update(@RequestBody Friend friend){
-        return friendService.save(friend);
+    ResponseEntity<Friend> update(@RequestBody Friend friend){
+        if (friendService.findById(friend.getId()).isPresent()) {
+            return new ResponseEntity(friendService.save(friend), HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity(friend, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/friend/{id}")
