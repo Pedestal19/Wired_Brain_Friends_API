@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Author: Hosanna Gabe-Oji.
@@ -26,8 +27,8 @@ public class Friend {
     @JsonIgnore
     boolean married;
 
-    @Embedded
-    Address address;
+    @OneToMany(cascade = CascadeType.ALL)
+    List<Address> address;
 
     public int getId() {
         return id;
@@ -69,11 +70,11 @@ public class Friend {
         this.married = married;
     }
 
-    public Address getAddress() {
+    public List<Address> getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(List<Address> address) {
         this.address = address;
     }
 }

@@ -1,15 +1,17 @@
 package com.wiredbrain.friends.model;
 
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
 /**
  * Author: Hosanna Gabe-Oji.
  * Project: friends.
  * Date: 4/3/2020.
  */
-@Embeddable
+@Entity
 public class Address {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String street;
     private String city;
 
