@@ -11,5 +11,7 @@ import org.springframework.data.repository.CrudRepository;
 public interface FriendService extends CrudRepository<Friend, Integer> {
 
     Iterable<Friend> findByFirstnameAndLastName(String firstname, String lastname);
+    Iterable<Friend> findByFirstname(String firstname);
+    Iterable<Friend> findByLastName(String firstname);
 
 }
