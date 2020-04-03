@@ -4,10 +4,7 @@ package com.wiredbrain.friends.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Author: Hosanna Gabe-Oji.
@@ -28,6 +25,9 @@ public class Friend {
     private int age;
     @JsonIgnore
     boolean married;
+
+    @Embedded
+    Address address;
 
     public int getId() {
         return id;
@@ -67,5 +67,13 @@ public class Friend {
 
     public void setMarried(boolean married) {
         this.married = married;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }
