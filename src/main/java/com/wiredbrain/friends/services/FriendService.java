@@ -9,5 +9,5 @@ import org.springframework.data.repository.CrudRepository;
  * Date: 4/3/2020.
  */
 public interface FriendService extends CrudRepository<Friend, Integer> {
-    
+
 }
