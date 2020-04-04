@@ -24,10 +24,12 @@ public class SystemTests {
         ResponseEntity<Friend> entity = restTemplate.postForEntity(url, friend, Friend.class);
 
         Friend[] friends = restTemplate.getForObject(url, Friend[].class);
-        Assertions.assertThat(friends).extracting(Friend::getFirstname).containsOnly("Hosanna");
+        Assertions.assertThat(friends).extracting(Friend::getFirstname).contains("Hosanna");
 
         restTemplate.delete(url + "/" +entity.getBody().getId());
-        Assertions.assertThat(restTemplate.getForObject(url, Friend[].class)).isEmpty();
+//        Assertions.assertThat(restTemplate.getForObject(url, Friend[].class)).isEmpty();
+        Friend[] friendsAfterDelete = restTemplate.getForObject(url, Friend[].class);
+        Assertions.assertThat(friendsAfterDelete).extracting(Friend::getId).doesNotContain(entity.getBody().getId());
 
     }
 
