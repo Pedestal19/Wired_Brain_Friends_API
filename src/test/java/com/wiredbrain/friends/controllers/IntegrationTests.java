@@ -29,11 +29,13 @@ public class IntegrationTests {
 
         Friend friendResult = friendController.create(friend);
 
-       /* Iterable<Friend> friends = friendController.read();
-        Assertions.assertThat(friends).first().hasFieldOrPropertyWithValue("firstName", "Ian");
-*/
+        Iterable<Friend> friends = friendController.read();
+        Assertions.assertThat(friends).last().hasFieldOrPropertyWithValue("firstname", "Ian");
+
         friendController.delete(friendResult.getId());
-        Assertions.assertThat(friendController.read()).isEmpty();
+//        Assertions.assertThat(friendController.read()).isEmpty();
+        Assertions.assertThat(friendController.findById(friendResult.getId())).isEmpty();
+
 
     }
 
