@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ValidationException;
 import java.util.Optional;
 
 /**
@@ -23,7 +24,14 @@ public class FriendController {
 
     @PostMapping("/friend")
     Friend create(@RequestBody  Friend friend){
-        return friendService.save(friend);
+        if (friend.getId() ==0 && friend.getFirstname() != null && friend.getLastName() != null)
+            return friendService.save(friend);
+        else throw new ValidationException("friend cannot be created");
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    ResponseEntity<String> exceptionHandler(ValidationException e){
+        return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/friend")
