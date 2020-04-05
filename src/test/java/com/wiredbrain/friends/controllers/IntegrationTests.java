@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.validation.ValidationException;
 
 
 /**
@@ -37,6 +38,11 @@ public class IntegrationTests {
         Assertions.assertThat(friendController.findById(friendResult.getId())).isEmpty();
 
 
+    }
+
+    @Test(expected = ValidationException.class)
+    public void errorHandlingValidationExceptionThrown(){
+        friendController.somethingIsWrong();
     }
 
 }
