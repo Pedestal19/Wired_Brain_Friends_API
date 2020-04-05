@@ -2,8 +2,11 @@ package com.wiredbrain.friends;
 
 import com.wiredbrain.friends.model.Friend;
 import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -31,6 +34,20 @@ public class SystemTests {
         Friend[] friendsAfterDelete = restTemplate.getForObject(url, Friend[].class);
         Assertions.assertThat(friendsAfterDelete).extracting(Friend::getId).doesNotContain(entity.getBody().getId());
 
+    }
+
+    @Test
+    public void testErrorHandlingReturnsBadRequest(){
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        String url = "http://localhost:7777/wrong";
+
+        try {
+            restTemplate.getForEntity(url, String.class);
+        } catch (HttpClientErrorException e) {
+            Assert.assertEquals(HttpStatus.BAD_REQUEST, e.getStatusCode());
+        }
     }
 
 }

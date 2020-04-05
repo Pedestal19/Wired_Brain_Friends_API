@@ -85,4 +85,11 @@ public class FriendController {
     Friend somethingIsWrong(){
         throw new ValidationException("Something is wrong");
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ValidationException.class)
+    String exceptionHandler(ValidationException e){
+        return e.getMessage();
+    }
+
 }
