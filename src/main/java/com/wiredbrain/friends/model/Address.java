@@ -3,6 +3,7 @@ package com.wiredbrain.friends.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Author: Hosanna Gabe-Oji.
@@ -18,15 +19,15 @@ public class Address {
     private String city;
 
     @JsonBackReference
-    @ManyToOne
-    Friend friend;
+    @ManyToMany
+    private Set<Friend> friends;
 
-    public Friend getFriend() {
-        return friend;
+    public Set<Friend> getFriends() {
+        return friends;
     }
 
-    public void setFriend(Friend friend) {
-        this.friend = friend;
+    public void setFriends(Set<Friend> friends) {
+        this.friends = friends;
     }
 
     public int getId() {

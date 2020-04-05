@@ -2,7 +2,6 @@ package com.wiredbrain.friends.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -30,8 +29,7 @@ public class Friend {
     @JsonIgnore
     boolean married;
 
-    @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "friend")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "friends")
     private Set<Address> address;
 
     public Friend(@NotBlank String firstname, String lastName) {
