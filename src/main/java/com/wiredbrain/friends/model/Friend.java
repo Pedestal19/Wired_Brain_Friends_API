@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Author: Hosanna Gabe-Oji.
@@ -31,8 +31,8 @@ public class Friend {
     boolean married;
 
     @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL)
-    List<Address> address;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "friend")
+    private Set<Address> address;
 
     public Friend(@NotBlank String firstname, String lastName) {
         this.firstname = firstname;
@@ -82,11 +82,11 @@ public class Friend {
         this.married = married;
     }
 
-    public List<Address> getAddress() {
+    public Set<Address> getAddress() {
         return address;
     }
 
-    public void setAddress(List<Address> address) {
+    public void setAddress(Set<Address> address) {
         this.address = address;
     }
 }
